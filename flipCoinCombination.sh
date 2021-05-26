@@ -6,23 +6,25 @@ echo "--------------------------------------------"
 declare -A Coin
 read -p "Enter the number to flip a coin : " num
 
+function Case()
+{
+	case $1 in
+		11) echo "HH";;
+		10) echo "HT";;
+		01) echo "TH";;
+		00) echo "TT";;
+	esac
+}
+
+
 for (( i=1; i<=$num; i++ ))
 do
-	Random=$((RANDOM%2))
-	if [ $Random -eq 1 ]
-	then
-		#echo "IT IS HEAD"
-		((Coin[H]++))
-	else
-		#echo "IT IS TAIL"
-		((Coin[T]++))
-	fi
+	Random=$((RANDOM%2))$((RANDOM%2))
+	((++Coin[`Case $Random`]))
 done
 
-echo "HEAD COMES ${Coin[H]} times & TAIL comes ${Coin[T]} times"
-
-PercntgHead=$(awk "BEGIN{print (${Coin[H]}/$num * 100)}")
-PercntgTail=$(awk "BEGIN{print (${Coin[T]}/$num * 100)}")
-
-echo "Percentage of Winning HEAD out of flipping $num times is $PercntgHead"
-echo "Percentage of Winning TAIL out of flipping $num times is $PercntgTail"
+for Key in ${!Coin[@]}
+do
+	Percntg=$(awk "BEGIN{print (${Coin[$Key]}/$num * 100 )}")
+	echo "Percentage of winning $Key is $Percntg %"
+done
