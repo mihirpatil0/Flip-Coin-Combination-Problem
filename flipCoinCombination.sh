@@ -9,17 +9,22 @@ read -p "Enter the number to flip a coin : " num
 function Case()
 {
 	case $1 in
-		11) echo "HH";;
-		10) echo "HT";;
-		01) echo "TH";;
-		00) echo "TT";;
+		111) echo "HHH";;
+		110) echo "HHT";;
+		101) echo "HTH";;
+		100) echo "HTT";;
+		011) echo "THH";;
+		010) echo "THT";;
+		001) echo "TTH";;
+		000) echo "TTT";;
+
 	esac
 }
 
 
 for (( i=1; i<=$num; i++ ))
 do
-	Random=$((RANDOM%2))$((RANDOM%2))
+	Random=$((RANDOM%2))$((RANDOM%2))$((RANDOM%2))
 	((++Coin[`Case $Random`]))
 done
 
